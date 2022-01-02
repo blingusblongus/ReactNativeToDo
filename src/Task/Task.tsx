@@ -15,12 +15,15 @@ function Task(props) {
             borderRadius: 5,
         },
         description: {
-            flex: 2,
+            flex: 5,
             color: 'black',
             alignSelf: 'center',
             backgroundColor: 'red',
             height: '100%',
             textAlignVertical: 'center',
+        },
+        date: {
+            flex: 2,
         },
         switch: {
             flex: 1,
@@ -43,6 +46,7 @@ function Task(props) {
                 onValueChange={toggleSwitch}
             ></Switch>
             <Text style={styles.description}>Hello</Text>
+            <Text style={styles.date}>12/16</Text>
         </View>
     );
 }
