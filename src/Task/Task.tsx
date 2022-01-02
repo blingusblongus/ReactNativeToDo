@@ -12,14 +12,20 @@ function Task(props) {
         task: {
             flex: 1,
             borderWidth: 2,
-            borderRadius: 5
+            borderRadius: 5,
         },
         description: {
-            flex: 1,
-            color: 'black'
+            flex: 2,
+            color: 'black',
+            alignSelf: 'center',
+            backgroundColor: 'red',
+            height: '100%',
+            textAlignVertical: 'center',
         },
         switch: {
             flex: 1,
+            alignSelf: 'flex-end',
+            backgroundColor: 'orange'
         }
     });
 
@@ -28,11 +34,14 @@ function Task(props) {
     }
 
     return (
-        <View style={styles.task}>
+        <View style={[styles.task, {
+            flexDirection: "row"
+        }]}>
             <Switch
                 style={styles.switch}
                 value={done}
-                onValueChange={toggleSwitch}></Switch>
+                onValueChange={toggleSwitch}
+            ></Switch>
             <Text style={styles.description}>Hello</Text>
         </View>
     );
