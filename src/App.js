@@ -65,9 +65,10 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const getTasks = async () => {
+  const getTasks = async (crit) => {
     try {
-      let tasks = await axios.get(`http://${LOCALHOST_IP}:5000/tasks/Complete`);
+      if(!crit) crit = 'Date &uarr;'
+      let tasks = await axios.get(`http://${LOCALHOST_IP}:5000/tasks/${crit}`);
       setTasks(tasks.data);
     } catch (err) {
       console.log(err);
