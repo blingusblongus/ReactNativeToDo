@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     StyleSheet,
     View,
     Switch
 } from 'react-native';
+import axios from 'axios';
+import {LOCALHOST_IP} from '../../config.js';
 
 function Task(props) {
     const [done, setDone] = useState(false);
+    const [tasks, setTasks] = useState([]);
+
     const styles = StyleSheet.create({
         task: {
             flex: 1,
@@ -32,9 +36,22 @@ function Task(props) {
         }
     });
 
+    const getTasks = async () => {
+        try{
+            let tasks = await axios.get(`http://${LOCALHOST_IP}:5000/tasks/Complete`);
+            console.log(tasks.data);
+        }catch(err){
+            console.log(err);
+        } 
+    }
+
     const toggleSwitch = () => {
         setDone(!done);
     }
+
+    useEffect(()=>{
+        getTasks();
+    },[])
 
     return (
         <View style={[styles.task, {
