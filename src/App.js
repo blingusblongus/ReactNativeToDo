@@ -91,7 +91,7 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-            <AddTask></AddTask>
+          <AddTask />
           <TaskList tasks={tasks}></TaskList>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
