@@ -28,8 +28,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Task from './Task/Task';
 import TaskList from './TaskList/TaskList';
+import AddTask from './AddTask/AddTask';
 
 const Section = ({ children, title }): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -91,6 +91,7 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+            <AddTask></AddTask>
           <TaskList tasks={tasks}></TaskList>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
