@@ -20,15 +20,18 @@ function AddTask(props) {
 
     const styles = StyleSheet.create({
         container: {
-            flex: 1,
+            flexDirection: 'row'
         },
         label:{
             flex: 1,
             color: 'black',
+            flexGrow: 1,
+            textAlignVertical: 'center',
         },
         input:{
             flex: 1,
             borderWidth: 1,
+            flexGrow: 3
         }
     })
 
