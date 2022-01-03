@@ -93,9 +93,11 @@ const App: () => Node = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
             padding: 10,
           }}>
+            <Text style={{fontSize: 60, textAlign: 'center'}}
+            >To-Do List</Text>
           <AddTask getTasks={getTasks}/>
           <TaskList tasks={tasks} getTasks={getTasks}></TaskList>
-          <Section title="Step One">
+          {/* <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
             Here is an edit
@@ -109,7 +111,7 @@ const App: () => Node = () => {
           <Section title="Learn More">
             Read the docs to discover what to do next:
           </Section>
-          <LearnMoreLinks />
+          <LearnMoreLinks /> */}
         </View>
       </ScrollView>
     </SafeAreaView>

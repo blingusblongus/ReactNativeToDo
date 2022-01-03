@@ -30,6 +30,8 @@ function Task({ task, getTasks}) {
         date: {
             flex: 2,
             textAlignVertical: 'center',
+            marginRight: 3,
+            fontSize: 13,
         },
         switch: {
             flex: 1,
