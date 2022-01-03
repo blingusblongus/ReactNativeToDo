@@ -91,6 +91,7 @@ const App: () => Node = () => {
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
+            padding: 10,
           }}>
           <AddTask getTasks={getTasks}/>
           <TaskList tasks={tasks} getTasks={getTasks}></TaskList>

@@ -35,6 +35,7 @@ function Task({ task, getTasks}) {
             flex: 1,
             alignSelf: 'flex-end',
             height: '100%',
+            paddingLeft: 10,
         }
     });
 
