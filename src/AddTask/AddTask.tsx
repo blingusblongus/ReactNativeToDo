@@ -20,7 +20,7 @@ function AddTask(props) {
     });
 
     const addTask = async () => {
-        try{
+        try {
             console.log(task);
             await axios({
                 method: 'POST',
@@ -28,11 +28,11 @@ function AddTask(props) {
                 data: task
             });
             console.log('add success');
-        }catch(err){
+        } catch (err) {
             console.log(err);
             console.log(task);
         }
-        
+
     }
 
     const styles = StyleSheet.create({
@@ -50,7 +50,11 @@ function AddTask(props) {
             flex: 1,
             borderWidth: 1,
             flexGrow: 3
-        }
+        },
+        submit: {
+            flex: 1,
+            flexGrow: 3
+        },
     })
 
     console.log(task);
@@ -77,15 +81,15 @@ function AddTask(props) {
                 open={open}
                 onConfirm={(d) => {
                     setOpen(false);
-                    setTask({...task, dateDue: d});
+                    setTask({ ...task, dateDue: d });
                 }}
                 onCancel={() => {
                     setOpen(false)
                 }}
             ></DatePicker>
             <Button
-                    onPress={addTask}
-                    title="Submit"></Button>
+                onPress={addTask}
+                title="Submit"></Button>
         </View>
     )
 }

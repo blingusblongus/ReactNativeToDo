@@ -7,13 +7,14 @@ import {
 } from 'react-native';
 
 function Task({ task }) {
-    const [done, setDone] = useState(false);
+    const [done, setDone] = useState(task.complete);
 
     const styles = StyleSheet.create({
         task: {
             flex: 1,
             borderWidth: 2,
             borderRadius: 5,
+            margin: 2,
         },
         description: {
             flex: 5,
@@ -25,6 +26,7 @@ function Task({ task }) {
         },
         date: {
             flex: 2,
+            textAlignVertical: 'center',
         },
         switch: {
             flex: 1,
@@ -36,6 +38,8 @@ function Task({ task }) {
     const toggleSwitch = () => {
         setDone(!done);
     }
+
+    console.log(task);
 
     return (
         <View style={[styles.task, {
@@ -50,7 +54,7 @@ function Task({ task }) {
                     ></Switch>
 
                     <Text style={styles.description}>{task.description}</Text>
-                    <Text style={styles.date}></Text>
+                    <Text style={styles.date}>{task.date_due?.split('T')[0]}</Text>
                 </>
             }
 
