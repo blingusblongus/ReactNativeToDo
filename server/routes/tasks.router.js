@@ -23,6 +23,7 @@ tasksRouter.get('/:sortBy', (req, res) => {
 
 // POST a new task
 tasksRouter.post('/', (req, res) => {
+    console.log(req.body);
     let queryText = `
     INSERT INTO tasks ("description", "complete", "date_due")
     VALUES ($1, $2, $3);`;

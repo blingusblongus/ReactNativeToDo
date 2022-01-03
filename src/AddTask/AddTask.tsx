@@ -5,30 +5,48 @@ import {
     TextInput,
     Text,
     StyleSheet,
+    Button,
 } from 'react-native';
+import { LOCALHOST_IP } from '../../config';
 
 import axios from 'axios';
 
 function AddTask(props) {
-    const [date, setDate] = useState(new Date())
     const [open, setOpen] = useState(false);
     const [task, setTask] = useState({
         description: '',
-        dateDue: date,
+        dateDue: new Date(),
         complete: false
     });
 
+    const addTask = async () => {
+        try{
+            console.log(task);
+            await axios({
+                method: 'POST',
+                url: `http://${LOCALHOST_IP}:5000/tasks`,
+                data: task
+            });
+            console.log('add success');
+        }catch(err){
+            console.log(err);
+            console.log(task);
+        }
+        
+    }
+
     const styles = StyleSheet.create({
         container: {
-            flexDirection: 'row'
+            flexDirection: 'row',
+            padding: 10,
         },
-        label:{
+        label: {
             flex: 1,
             color: 'black',
             flexGrow: 1,
             textAlignVertical: 'center',
         },
-        input:{
+        input: {
             flex: 1,
             borderWidth: 1,
             flexGrow: 3
@@ -46,19 +64,28 @@ function AddTask(props) {
                     onChangeText={(text) => setTask({ ...task, description: text })}
                 ></TextInput>
             </View>
-            <Text style={styles.label}>Date Due:  {date.toISOString().split('T')} </Text>
+            <View style={styles.container}>
+                <Text style={styles.label}>Date Due:  {task.dateDue.toISOString().split('T')[0]} </Text>
+                <Button
+                    onPress={() => { setOpen(true) }}
+                    title="Edit"></Button>
+            </View>
             <DatePicker
                 modal
-                date={date}
+                mode="date"
+                date={task.dateDue}
                 open={open}
-                onConfirm={(date) => {
+                onConfirm={(d) => {
                     setOpen(false);
-                    setDate(date);
+                    setTask({...task, dateDue: d});
                 }}
                 onCancel={() => {
                     setOpen(false)
                 }}
             ></DatePicker>
+            <Button
+                    onPress={addTask}
+                    title="Submit"></Button>
         </View>
     )
 }
