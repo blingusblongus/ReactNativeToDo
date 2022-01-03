@@ -91,8 +91,8 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <AddTask />
-          <TaskList tasks={tasks}></TaskList>
+          <AddTask getTasks={getTasks}/>
+          <TaskList tasks={tasks} getTasks={getTasks}></TaskList>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.

@@ -11,7 +11,7 @@ import { LOCALHOST_IP } from '../../config';
 
 import axios from 'axios';
 
-function AddTask(props) {
+function AddTask({getTasks}) {
     const [open, setOpen] = useState(false);
     const [task, setTask] = useState({
         description: '',
@@ -27,6 +27,7 @@ function AddTask(props) {
                 url: `http://${LOCALHOST_IP}:5000/tasks`,
                 data: task
             });
+            await getTasks();
             console.log('add success');
         } catch (err) {
             console.log(err);

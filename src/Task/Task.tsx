@@ -3,10 +3,13 @@ import {
     Text,
     StyleSheet,
     View,
-    Switch
+    Switch,
+    Button,
 } from 'react-native';
+import axios from 'axios';
+import { LOCALHOST_IP } from '../../config';
 
-function Task({ task }) {
+function Task({ task, getTasks}) {
     const [done, setDone] = useState(task.complete);
 
     const styles = StyleSheet.create({
@@ -31,12 +34,22 @@ function Task({ task }) {
         switch: {
             flex: 1,
             alignSelf: 'flex-end',
-            backgroundColor: 'orange'
+            backgroundColor: 'orange',
+            height: '100%',
         }
     });
 
     const toggleSwitch = () => {
         setDone(!done);
+    }
+
+    const deleteTask = async () => {
+        try{
+            await axios.delete(`http://${LOCALHOST_IP}:5000/tasks/${task.id}`);
+            await getTasks();
+        }catch(err){
+            console.log(err);
+        }
     }
 
     console.log(task);
@@ -55,6 +68,7 @@ function Task({ task }) {
 
                     <Text style={styles.description}>{task.description}</Text>
                     <Text style={styles.date}>{task.date_due?.split('T')[0]}</Text>
+                    <Button title="Delete" onPress={deleteTask}></Button>
                 </>
             }
 
