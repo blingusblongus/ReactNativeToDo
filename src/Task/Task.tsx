@@ -18,12 +18,12 @@ function Task({ task, getTasks}) {
             borderWidth: 2,
             borderRadius: 5,
             margin: 2,
+            backgroundColor: done ? '#dcffd6' : 'white',
         },
         description: {
             flex: 5,
             color: 'black',
             alignSelf: 'center',
-            backgroundColor: 'red',
             height: '100%',
             textAlignVertical: 'center',
         },
@@ -34,7 +34,6 @@ function Task({ task, getTasks}) {
         switch: {
             flex: 1,
             alignSelf: 'flex-end',
-            backgroundColor: 'orange',
             height: '100%',
         }
     });
