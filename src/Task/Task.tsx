@@ -6,7 +6,7 @@ import {
     Switch
 } from 'react-native';
 
-function Task(props) {
+function Task({ task }) {
     const [done, setDone] = useState(false);
 
     const styles = StyleSheet.create({
@@ -41,13 +41,19 @@ function Task(props) {
         <View style={[styles.task, {
             flexDirection: "row"
         }]}>
-            <Switch
-                style={styles.switch}
-                value={done}
-                onValueChange={toggleSwitch}
-            ></Switch>
-            <Text style={styles.description}>Hello</Text>
-            <Text style={styles.date}>12/16</Text>
+            {task &&
+                <>
+                    <Switch
+                        style={styles.switch}
+                        value={done}
+                        onValueChange={toggleSwitch}
+                    ></Switch>
+
+                    <Text style={styles.description}>{task.description}</Text>
+                    <Text style={styles.date}></Text>
+                </>
+            }
+
         </View>
     );
 }

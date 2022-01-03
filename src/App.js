@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LOCALHOST_IP } from '../config';
 import type { Node } from 'react';
@@ -29,6 +29,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import Task from './Task/Task';
+import TaskList from './TaskList/TaskList';
 
 const Section = ({ children, title }): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -63,14 +64,15 @@ const App: () => Node = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
   const getTasks = async () => {
-    try{
-        let tasks = await axios.get(`http://${LOCALHOST_IP}:5000/tasks/Complete`);
-        setTasks(tasks.data);
-    }catch(err){
-        console.log(err);
-    } 
-}
+    try {
+      let tasks = await axios.get(`http://${LOCALHOST_IP}:5000/tasks/Complete`);
+      setTasks(tasks.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     getTasks();
@@ -89,7 +91,7 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Task />
+          <TaskList tasks={tasks}></TaskList>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.

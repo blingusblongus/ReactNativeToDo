@@ -1,0 +1,2 @@
+- talk about config
+- credit Ronald's github page
