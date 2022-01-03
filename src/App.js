@@ -6,8 +6,10 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import { LOCALHOST_IP } from '../config';
+import type { Node } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -28,7 +30,7 @@ import {
 
 import Task from './Task/Task';
 
-const Section = ({children, title}): Node => {
+const Section = ({ children, title }): Node => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -56,10 +58,25 @@ const Section = ({children, title}): Node => {
 
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const [tasks, setTasks] = useState([]);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+  const getTasks = async () => {
+    try{
+        let tasks = await axios.get(`http://${LOCALHOST_IP}:5000/tasks/Complete`);
+        setTasks(tasks.data);
+    }catch(err){
+        console.log(err);
+    } 
+}
+
+  useEffect(() => {
+    getTasks();
+  }, [])
+
+  console.log(tasks);
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -72,7 +89,7 @@ const App: () => Node = () => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-            <Task/>
+          <Task />
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
