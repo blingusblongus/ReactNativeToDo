@@ -8,6 +8,9 @@ import Task from '../Task/Task';
 
 function TaskList({tasks, getTasks}){
     const styles = StyleSheet.create({
+        container: {
+            backgroundColor: 'white',
+        },
         btnBar: {
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -18,7 +21,7 @@ function TaskList({tasks, getTasks}){
         }
     })
 
-    return <View>
+    return <View style={styles.container}>
         <View style={styles.btnBar}>
             <Button title="Date &uarr;" style={styles.btnBarBtn} onPress={() => getTasks('Date &uarr;')}></Button>
             <Button title="Date &darr;" style={styles.btnBarBtn} onPress={() => getTasks('Date &darr;')}></Button>

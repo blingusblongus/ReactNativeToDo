@@ -20,6 +20,7 @@ function AddTask({ getTasks }) {
         complete: false
     });
     const [targetHeight, setTargetHeight] = useState(200);
+    const [addBtnMsg, setAddBtnMsg] = useState('ADD')
 
     const addTask = async () => {
         try {
@@ -45,6 +46,7 @@ function AddTask({ getTasks }) {
               duration: 1000,}
           ).start();
         setTargetHeight(targetHeight === 200 ? 0 : 200);
+        setAddBtnMsg(addBtnMsg === 'ADD' ? 'CANCEL' : 'ADD');
     }
 
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
@@ -84,7 +86,7 @@ function AddTask({ getTasks }) {
 
     return (
         <View>
-            <Button title='Add' onPress={toggleAdd}></Button>
+            <Button title={addBtnMsg} onPress={toggleAdd}></Button>
             <Animated.View
                 style={{
                     height: fadeAnim,         // Bind opacity to animated value
