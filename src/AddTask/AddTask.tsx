@@ -48,10 +48,14 @@ function AddTask({getTasks}) {
             textAlignVertical: 'center',
         },
         input: {
-            flex: 1,
+            borderColor: "gray",
+            width: "100%",
             borderWidth: 1,
-            flexGrow: 3
-        },
+            borderRadius: 10,
+            padding: 10,
+            flex: 1,
+            flexGrow: 2.5
+          },
         submit: {
             flex: 1,
             flexGrow: 3
