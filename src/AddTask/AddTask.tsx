@@ -31,6 +31,7 @@ function AddTask({ getTasks }) {
                 data: task
             });
             await getTasks();
+            await setTask({...task, description: ''});
             console.log('add success');
         } catch (err) {
             console.log(err);
@@ -40,20 +41,15 @@ function AddTask({ getTasks }) {
     }
 
     const toggleAdd = () => {
-        Animated.timing(
-            fadeAnim,
-            {toValue: targetHeight,
-              duration: 1000,}
-          ).start();
+        Animated.timing(fadeAnim, {
+            toValue: targetHeight,
+            duration: 1000,
+           }).start();
         setTargetHeight(targetHeight === 200 ? 0 : 200);
         setAddBtnMsg(addBtnMsg === 'ADD' ? 'CANCEL' : 'ADD');
     }
 
     const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
-
-    React.useEffect(() => {
-
-    }, [fadeAnim])
 
     const styles = StyleSheet.create({
         container: {
@@ -97,6 +93,7 @@ function AddTask({ getTasks }) {
                     <TextInput
                         style={styles.input}
                         onChangeText={(text) => setTask({ ...task, description: text })}
+                        defaultValue={task.description}
                     ></TextInput>
                 </View>
                 <View style={styles.container}>

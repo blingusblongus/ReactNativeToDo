@@ -38,7 +38,7 @@ function Task({ task, getTasks}) {
             alignSelf: 'flex-end',
             height: '100%',
             paddingLeft: 10,
-        }
+        },
     });
 
     const toggleSwitch = () => {
@@ -70,7 +70,10 @@ function Task({ task, getTasks}) {
 
                     <Text style={styles.description}>{task.description}</Text>
                     <Text style={styles.date}>{task.date_due?.split('T')[0]}</Text>
-                    <Button title="Delete" onPress={deleteTask}></Button>
+                    <Button title="Delete" 
+                    onPress={deleteTask}
+                    color="#ff1423"
+                    ></Button>
                 </>
             }
 
