@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import DatePicker from 'react-native-date-picker';
 import {
+    Animated,
     View,
     TextInput,
     Text,
@@ -11,13 +12,14 @@ import { LOCALHOST_IP } from '../../config';
 
 import axios from 'axios';
 
-function AddTask({getTasks}) {
+function AddTask({ getTasks }) {
     const [open, setOpen] = useState(false);
     const [task, setTask] = useState({
         description: '',
         dateDue: new Date(),
         complete: false
     });
+    const [targetHeight, setTargetHeight] = useState(200);
 
     const addTask = async () => {
         try {
@@ -35,6 +37,21 @@ function AddTask({getTasks}) {
         }
 
     }
+
+    const toggleAdd = () => {
+        Animated.timing(
+            fadeAnim,
+            {toValue: targetHeight,
+              duration: 1000,}
+          ).start();
+        setTargetHeight(targetHeight === 200 ? 0 : 200);
+    }
+
+    const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+
+    React.useEffect(() => {
+
+    }, [fadeAnim])
 
     const styles = StyleSheet.create({
         container: {
@@ -55,46 +72,54 @@ function AddTask({getTasks}) {
             padding: 10,
             flex: 1,
             flexGrow: 2.5
-          },
+        },
         submit: {
             flex: 1,
             flexGrow: 3
         },
+        
     })
 
     console.log(task);
 
     return (
         <View>
-            <View style={styles.container}>
-                <Text style={styles.label}>Description:</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={(text) => setTask({ ...task, description: text })}
-                ></TextInput>
-            </View>
-            <View style={styles.container}>
-                <Text style={styles.label}>Date Due:  {task.dateDue.toISOString().split('T')[0]} </Text>
+            <Button title='Add' onPress={toggleAdd}></Button>
+            <Animated.View
+                style={{
+                    height: fadeAnim,         // Bind opacity to animated value
+                  }}
+            >
+                <View style={styles.container}>
+                    <Text style={styles.label}>Description:</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={(text) => setTask({ ...task, description: text })}
+                    ></TextInput>
+                </View>
+                <View style={styles.container}>
+                    <Text style={styles.label}>Date Due:  {task.dateDue.toISOString().split('T')[0]} </Text>
+                    <Button
+                        onPress={() => { setOpen(true) }}
+                        title="Edit"></Button>
+                </View>
+                <DatePicker
+                    modal
+                    mode="date"
+                    date={task.dateDue}
+                    open={open}
+                    onConfirm={(d) => {
+                        setOpen(false);
+                        setTask({ ...task, dateDue: d });
+                    }}
+                    onCancel={() => {
+                        setOpen(false)
+                    }}
+                ></DatePicker>
                 <Button
-                    onPress={() => { setOpen(true) }}
-                    title="Edit"></Button>
-            </View>
-            <DatePicker
-                modal
-                mode="date"
-                date={task.dateDue}
-                open={open}
-                onConfirm={(d) => {
-                    setOpen(false);
-                    setTask({ ...task, dateDue: d });
-                }}
-                onCancel={() => {
-                    setOpen(false)
-                }}
-            ></DatePicker>
-            <Button
-                onPress={addTask}
-                title="Submit"></Button>
+                    onPress={addTask}
+                    title="Submit"></Button>
+            </Animated.View>
         </View>
     )
 }
